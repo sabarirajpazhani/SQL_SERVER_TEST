@@ -169,3 +169,58 @@ create table OrderDetails (
 	foreign key (productID) references Product(productID)
 );
 
+--11. What is the purpose of a junction table? Explain with a Many-to-Many relationship scenario.
+--Answer: Ternary operator is used to handle the many to many relationship between two tables
+-- Because of many to many relationship is not directly used in the sql server
+
+create table Product(
+	productID int primary key,
+	productName varchar(20),
+	productPrice int
+);
+
+create table orderProd(
+	orderID int primary key,
+	customerID int,
+	orderDate date,
+);
+
+create table OrderDetails (
+	orderID int,
+	productID int,
+	quantity int check(quantity > 0),
+	unitPrice decimal(10,2),
+	foreign key (orderID) references orderProd(orderID),
+	foreign key (productID) references Product(productID)
+);
+
+-- this query is also the example of junciton table. The juunction table is OrderDetails
+
+--SECTION C
+--12. What is the difference between WHERE and HAVING?
+/* where is used to filter the records using specific conditions where as HAVING is used to filter the grouped data.
+HAVING is word with GROUP BY . WHERE can't work with aggregate function but HAVING id only work with only aggregate functions
+
+13. Define a view and explain when you would use one. Can we update a view?
+view is the virtual table. it does not store the data physically.
+it is used in the case of we want to execuite the particukar query for particular case then we can use the view concept. 
+for example : implementing row level security, hiding the complexity, implementing column level security
+
+Yes we can also update the view
+view name is vwAllEmployee
+UPDATE vwAllEmployee
+SET Name = 'raj'
+where id = 1;
+
+14.What are ACID properties in transactions?
+
+ACID properties is the set of rules which is used to tell how the database table must be. i.e. the principle is 'do everything, do nothing'
+A- Atomicity
+C- Confientiality
+I- Isolation
+D- Durability
+
+15. What is the difference between DELETE, TRUNCATE, and DROP?
+DELETE  - Used to delete the particular row permenently\
+TRUNCATE - used to delete the records but it have the structure of the table
+DROP - used to delete the entire table and database permenently
