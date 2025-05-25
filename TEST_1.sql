@@ -76,3 +76,32 @@ create table Customer (
 	CreatedDate date default GETDATE()
 );
 
+--7. Write a stored procedure to get all employees working in a given department (department name is input).
+create procedure employees(
+	@dept varchar(50) 
+) AS
+begin 
+select * from Employee 
+inner join Department
+on Employee.deptID = Department.deptID
+where Department.deptName = @dept
+end;
+
+exec employees 'HR';
+
+--8. Write a query to fetch all records from Orders table placed in the last 7 days.
+create table Orders(
+	orderID int primary key,
+	productName varchar(50),
+	price int,
+	orderedDate DATE
+);
+insert into Orders (orderID,productName,price,orderedDate)
+values
+(101,'Mobile',50000,'2025-03-02'),
+(102,'Laptop',65000,'2025-04-01'),
+(103,'Earpods',2000,'2025-05-24');
+
+select * from orders
+where orderedDate >= dateadd(day,-7,getdate());
+
