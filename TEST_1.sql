@@ -137,3 +137,35 @@ create table Entrollment(
 	foreign key (StudID) references Student(StudID),
 	foreign key (CourseID) references Course(CourseID)
 );
+
+/*Q10. You are given an ER model:
+Product <---- OrderDetails ----> Order
+Design these tables with proper keys assuming:
+
+Product has: ID, Name, Price
+
+Order has: OrderID, CustomerID, OrderDate
+
+OrderDetails includes Quantity and UnitPrice*/
+
+create table Product(
+	productID int primary key,
+	productName varchar(20),
+	productPrice int
+);
+
+create table orderProd(
+	orderID int primary key,
+	customerID int,
+	orderDate date,
+);
+
+create table OrderDetails (
+	orderID int,
+	productID int,
+	quantity int check(quantity > 0),
+	unitPrice decimal(10,2),
+	foreign key (orderID) references orderProd(orderID),
+	foreign key (productID) references Product(productID)
+);
+
