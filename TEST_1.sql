@@ -29,6 +29,8 @@ insert into Employee (empid, empName, empSalary,deptID) values
 select * from employee;
 select * from Department;
 
+--section A
+
 --1. Write a SQL query to get the names and salaries of the top 3 highest-paid employees from the Employee table.
 select top 3 empName, empSalary from Employee
 order by empSalary DESC;
@@ -105,3 +107,33 @@ values
 select * from orders
 where orderedDate >= dateadd(day,-7,getdate());
 
+-- section B
+--9. 
+/*Entities:
+- Student (ID, Name, Email)
+- Course (CourseID, Title)
+- Enrollment (StudentID, CourseID, EnrollmentDate)
+
+Relationships:
+- A student can enroll in many courses.
+- A course can have many students.*/
+
+create table Student (
+	StudID int Primary key,
+	StudName varchar(40),
+	Email varchar(50)
+);
+
+create table Course (
+	CourseID int Primary key,
+	Title varchar(30)
+);
+
+create table Entrollment(
+	StudID int,
+	CourseID int,
+	EnrollmentDate Date,
+	primary key(StudID,CourseID),
+	foreign key (StudID) references Student(StudID),
+	foreign key (CourseID) references Course(CourseID)
+);
